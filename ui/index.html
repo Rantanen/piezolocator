@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<script language="javascript" type="text/javascript">
+
+    var ws = null;
+    window.addEventListener( 'load', () => {
+
+        ws = new WebSocket( 'ws://localhost:8080/' );
+        ws.onmessage = msg => {
+            console.log( msg )
+        };
+    } );
+</script>
+<body>
+</body>
+</html>

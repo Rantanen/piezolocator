@@ -1,0 +1,69 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 0 0 312 176)
+	(text "PLL" (rect 139 0 181 23)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 156 35 172)(font "Arial" ))
+	(port
+		(pt 0 72)
+		(input)
+		(text "inclk0" (rect 0 0 47 19)(font "Arial" (font_size 8)))
+		(text "inclk0" (rect 4 53 43 71)(font "Arial" (font_size 8)))
+		(line (pt 0 72)(pt 56 72))
+	)
+	(port
+		(pt 312 72)
+		(output)
+		(text "c0" (rect 0 0 20 19)(font "Arial" (font_size 8)))
+		(text "c0" (rect 292 53 309 71)(font "Arial" (font_size 8)))
+	)
+	(drawing
+		(text "MAX 10" (rect 248 154 544 323)(font "Arial" ))
+		(text "inclk0 frequency: 12.000 MHz" (rect 66 65 320 145)(font "Arial" ))
+		(text "Operation Mode: Normal" (rect 66 82 288 179)(font "Arial" ))
+		(text "Clk " (rect 67 109 155 233)(font "Arial" ))
+		(text "Ratio" (rect 94 109 221 233)(font "Arial" ))
+		(text "Ph (dg)" (rect 130 109 307 233)(font "Arial" ))
+		(text "DC (%)" (rect 179 109 404 233)(font "Arial" ))
+		(text "c0" (rect 71 127 157 269)(font "Arial" ))
+		(text "25/1" (rect 97 127 221 269)(font "Arial" ))
+		(text "0.00" (rect 139 127 306 269)(font "Arial" ))
+		(text "50.00" (rect 184 127 404 269)(font "Arial" ))
+		(line (pt 0 0)(pt 313 0))
+		(line (pt 313 0)(pt 313 177))
+		(line (pt 0 177)(pt 313 177))
+		(line (pt 0 0)(pt 0 177))
+		(line (pt 64 107)(pt 225 107))
+		(line (pt 64 124)(pt 225 124))
+		(line (pt 64 142)(pt 225 142))
+		(line (pt 64 107)(pt 64 142))
+		(line (pt 91 107)(pt 91 142)(line_width 3))
+		(line (pt 127 107)(pt 127 142)(line_width 3))
+		(line (pt 176 107)(pt 176 142)(line_width 3))
+		(line (pt 224 107)(pt 224 142))
+		(line (pt 56 56)(pt 279 56))
+		(line (pt 279 56)(pt 279 159))
+		(line (pt 56 159)(pt 279 159))
+		(line (pt 56 56)(pt 56 159))
+		(line (pt 311 72)(pt 279 72))
+	)
+)
