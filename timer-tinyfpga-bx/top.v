@@ -1,6 +1,8 @@
 
+`define TRIGGER_COUNT 6
+
 module top(
-    input [3:0] TRIGGERS,
+    input [`TRIGGER_COUNT-1:0] TRIGGERS,
     input RESET,
     input CLK,
     output LED,
@@ -8,74 +10,50 @@ module top(
     output DATA_READY,
 
     input DATA_CLK,
-    output DATA_OUT
+    output DATA_OUT,
+
+    input HC_RXD,
+    input HC_TXD,
+    input HC_SET,
+    output RESERVED,
 );
 
     wire [31:0] timer_data;
 
+    wire [`TRIGGER_COUNT-1:0] data_ready;
+    wire [`TRIGGER_COUNT-1:0] enabled_triggers;
+    wire [`TRIGGER_COUNT:0] shift;
+
     timer timer_0(
         .clk( CLK ),
-        .reset( |data_ready ),
+        .reset( |(data_ready & enabled_triggers) ),
         .data( timer_data )
     );
 
-    wire [3:0] data_ready;
+    genvar i;
+    generate
+        for (i=0; i<`TRIGGER_COUNT; i=i+1) begin
 
-    wire t1_out;
-    trigger_timer t1(
-        .clk( CLK ),
-        .trigger( TRIGGERS[0] ),
-        .reset( RESET ),
-        .data( timer_data ),
-        .data_ready( data_ready[0] ),
+            trigger_timer t(
+                .clk( CLK ),
+                .trigger( TRIGGERS[i] ),
+                .reset( RESET ),
+                .data( timer_data ),
+                .data_ready( data_ready[i] ),
+                .is_enabled( enabled_triggers[i] ),
 
-        .data_clock( DATA_CLK ),
-        .data_shiftin( 0 ),
-        .data_shiftout( t1_out )
-    );
+                .data_clock( DATA_CLK ),
+                .data_shiftin( shift[i+1] ),
+                .data_shiftout( shift[i] )
+            );
+        end
+    endgenerate
 
-    wire t2_out;
-    trigger_timer t2(
-        .clk( CLK ),
-        .trigger( TRIGGERS[1] ),
-        .reset( RESET ),
-        .data( timer_data ),
-        .data_ready( data_ready[1] ),
-
-        .data_clock( DATA_CLK ),
-        .data_shiftin( t1_out ),
-        .data_shiftout( t2_out )
-    );
-
-    wire t3_out;
-    trigger_timer t3(
-        .clk( CLK ),
-        .trigger( TRIGGERS[2] ),
-        .reset( RESET ),
-        .data( timer_data ),
-        .data_ready( data_ready[2] ),
-
-        .data_clock( DATA_CLK ),
-        .data_shiftin( t2_out ),
-        .data_shiftout( t3_out )
-    );
-
-    wire t4_out;
-    trigger_timer t4(
-        .clk( CLK ),
-        .trigger( TRIGGERS[3] ),
-        .reset( RESET ),
-        .data( timer_data ),
-        .data_ready( data_ready[3] ),
-
-        .data_clock( DATA_CLK ),
-        .data_shiftin( t3_out ),
-        .data_shiftout( t4_out )
-    );
-
-    assign DATA_OUT = t4_out;
+    assign shift[6] = 0;
+    assign DATA_OUT = shift[0];
     assign DATA_READY = &data_ready;
-    assign LED = data_ready[3];
+    assign LED = ~|( data_ready & enabled_triggers );
+    assign RESERVED = |(data_ready & enabled_triggers);
 
 
 endmodule
